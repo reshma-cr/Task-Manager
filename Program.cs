@@ -1,0 +1,54 @@
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using static TaskService;
+
+public class Program
+{
+    public static void Main()
+    {
+        while (true)
+        {
+            Console.WriteLine("=== TASK MANAGER ===");
+            Console.WriteLine("1. Add Task \n2. View Tasks \n3. Delete Task \n4. Toggle Complete \n5. Exit");
+            Console.Write("Enter your choice: ");
+            if(int.TryParse(Console.ReadLine(), out int choice)){
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a number.");
+            }
+
+            switch (choice)
+            {
+                case 1:
+                    Console.WriteLine("Enter the Title and Description of the Task you want to add");
+                    Console.Write($"Title: ");
+                    string? title = Console.ReadLine();
+                    Console.Write($"Description: ");
+                    string? description = Console.ReadLine();
+                    TaskService.CreateTask(title, description);
+                    break;
+
+                case 2:
+                    TaskService.ViewTasks();
+                    break;
+
+                case 3:
+                    Console.WriteLine("Please enter the Id of the task to be deleted.");
+                    Guid.TryParse(Console.ReadLine(), out Guid taskId);
+                    TaskService.DeleteTask(taskId);
+                    break;
+
+                case 4:
+                    System.Console.WriteLine("Please enter the Id of the task to be toggeled.");
+                    Guid.TryParse(Console.ReadLine(), out Guid Id);
+                    TaskService.ToggleTask(Id);
+                    break;
+
+                case 5: break;
+            }
+            break;
+        }
+    }
+
+}
