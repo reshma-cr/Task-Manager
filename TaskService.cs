@@ -1,5 +1,3 @@
-using System.Diagnostics.Contracts;
-
 public static class TaskService
 {
     //old way to define a list as a class property
@@ -7,6 +5,16 @@ public static class TaskService
     public static List<Task> Tasks {get; set;} = []; //new way
 
     public static void CreateTask(string title, string description){
+        if (String.IsNullOrWhiteSpace(title))
+        {
+            Console.WriteLine("Title is required.");
+            return;
+        }
+        else if (String.IsNullOrWhiteSpace(description))
+        {
+            Console.WriteLine("Description is required.");
+            return;
+        }
         Task task = new Task()
         {
             Id = Guid.NewGuid(),
@@ -19,21 +27,30 @@ public static class TaskService
     public static void ViewTasks()
     {
         Console.WriteLine("== YOUR TASKS ==");
+        Console.WriteLine("ID\t\t\t\t\tSTATUS\tTITLE\t\t\tDESCRIPTION");
+        Console.WriteLine("---------------------------------------------------------------------------");
+        int total = Tasks.Count();
+        if(total == 0)
+        {
+            Console.WriteLine("No tasts to display.");
+            return;
+        }
+        int completed = 0;
         foreach(var task in Tasks)
         {
-            Console.Write($"Id: {task.Id} | ");
-            Console.Write($"Title: {task.Title} | ");
-            Console.Write($"Description: {task.Description} | ");
             if (task.IsCompleted)
             {
-                Console.Write($"Status: [x]");
+                completed++;
+                Console.WriteLine($"{task.Id}\t[x]\t{task.Title}\t\t{task.Description}");
             }
             else
             {
-                Console.Write($"Status: []");
-            }  
-            Console.WriteLine();
+                Console.WriteLine($"{task.Id}\t[ ]\t{task.Title}\t\t{task.Description}");
+            }
         }
+        int pending = total - completed;
+        Console.WriteLine("---------------------------------------------------------------------------");
+        Console.WriteLine($"Total: {total} | Completed: {completed} | Pending : {pending}");
     }
 
     public static void DeleteTask(Guid taskId)

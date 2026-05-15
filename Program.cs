@@ -23,9 +23,9 @@ public class Program
                 case 1:
                     Console.WriteLine("Enter the Title and Description of the Task you want to add");
                     Console.Write($"Title: ");
-                    string? title = Console.ReadLine();
+                    string title = Console.ReadLine() ?? "";
                     Console.Write($"Description: ");
-                    string? description = Console.ReadLine();
+                    string description = Console.ReadLine() ?? "";
                     TaskService.CreateTask(title, description);
                     break;
 
@@ -35,19 +35,27 @@ public class Program
 
                 case 3:
                     Console.WriteLine("Please enter the Id of the task to be deleted.");
-                    Guid.TryParse(Console.ReadLine(), out Guid taskId);
+                    if(!Guid.TryParse(Console.ReadLine(), out Guid taskId))
+                    {
+                        Console.WriteLine("Invalid Id format");
+                        break;
+                    }
                     TaskService.DeleteTask(taskId);
                     break;
 
                 case 4:
                     System.Console.WriteLine("Please enter the Id of the task to be toggeled.");
-                    Guid.TryParse(Console.ReadLine(), out Guid Id);
+                    if(!Guid.TryParse(Console.ReadLine(), out Guid Id))
+                    {
+                        Console.WriteLine("Invalid Id format");
+                        break;
+                    }
                     TaskService.ToggleTask(Id);
                     break;
 
-                case 5: break;
+                case 5: return;
             }
-            break;
+            
         }
     }
 
