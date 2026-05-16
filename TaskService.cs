@@ -32,7 +32,7 @@ public static class TaskService
         int total = Tasks.Count();
         if(total == 0)
         {
-            Console.WriteLine("No tasts to display.");
+            Console.WriteLine("No tasks to display.");
             return;
         }
         int completed = 0;
@@ -51,6 +51,22 @@ public static class TaskService
         int pending = total - completed;
         Console.WriteLine("---------------------------------------------------------------------------");
         Console.WriteLine($"Total: {total} | Completed: {completed} | Pending : {pending}");
+    }
+
+    public static void ViewCompletedTasks()
+    {
+        List<Task> completedTasks = Tasks.Where(t => t.IsCompleted).ToList();
+        if(completedTasks.Count() == 0)
+        {
+            Console.WriteLine("No completed tasks to display.");
+            return;
+        }
+        Console.WriteLine(" === COMPLETED TASKS ===");
+        foreach(var task in completedTasks)
+        {
+            Console.WriteLine($"• {task.Title} | {task.Description}");
+        }
+        Console.WriteLine();
     }
 
     public static void DeleteTask(Guid taskId)

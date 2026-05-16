@@ -9,7 +9,7 @@ public class Program
         while (true)
         {
             Console.WriteLine("=== TASK MANAGER ===");
-            Console.WriteLine("1. Add Task \n2. View Tasks \n3. Delete Task \n4. Toggle Complete \n5. Exit");
+            Console.WriteLine("1. Add Task \n2. View Tasks \n3. View Completed Tasks \n4. Delete Task \n5. Toggle Complete \n6. Exit");
             Console.Write("Enter your choice: ");
             if(int.TryParse(Console.ReadLine(), out int choice)){
             }
@@ -34,6 +34,10 @@ public class Program
                     break;
 
                 case 3:
+                    TaskService.ViewCompletedTasks();
+                    break;
+
+                case 4:
                     Console.WriteLine("Please enter the Id of the task to be deleted.");
                     if(!Guid.TryParse(Console.ReadLine(), out Guid taskId))
                     {
@@ -43,7 +47,7 @@ public class Program
                     TaskService.DeleteTask(taskId);
                     break;
 
-                case 4:
+                case 5:
                     System.Console.WriteLine("Please enter the Id of the task to be toggeled.");
                     if(!Guid.TryParse(Console.ReadLine(), out Guid Id))
                     {
@@ -53,7 +57,7 @@ public class Program
                     TaskService.ToggleTask(Id);
                     break;
 
-                case 5: return;
+                case 6: return;
             }
             
         }
