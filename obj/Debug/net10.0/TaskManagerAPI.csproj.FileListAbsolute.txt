@@ -31,3 +31,4 @@ C:\Users\crres\OneDrive\Desktop\SKILL DEV\DOTNET\TaskManagerAPI\obj\Debug\net10.
 C:\Users\crres\OneDrive\Desktop\SKILL DEV\DOTNET\TaskManagerAPI\obj\Debug\net10.0\TaskManagerAPI.pdb
 C:\Users\crres\OneDrive\Desktop\SKILL DEV\DOTNET\TaskManagerAPI\obj\Debug\net10.0\TaskManagerAPI.genruntimeconfig.cache
 C:\Users\crres\OneDrive\Desktop\SKILL DEV\DOTNET\TaskManagerAPI\obj\Debug\net10.0\ref\TaskManagerAPI.dll
+C:\Users\crres\OneDrive\Desktop\SKILL DEV\DOTNET\TaskManagerAPI\obj\Debug\net10.0\TaskManagerAPI.sourcelink.json

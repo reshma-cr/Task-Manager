@@ -11,5 +11,16 @@ public class TasksController : ControllerBase
         _taskService = taskService;
     }
 
-    
+    [HttpGet]
+    public ActionResult GetTasks(){
+        var tasks = _taskService.GetTasks();
+        return Ok(tasks);
+    }
+
+    [HttpPost]
+    public ActionResult<IEnumerable<Task>> CreateTask()
+    {
+        
+    }
+
 }
