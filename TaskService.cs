@@ -4,7 +4,7 @@ public class TaskService
     //public static List<string> {get; set;} = new List<string>(); 
     public List<Task> Tasks {get; set;} = []; //new way
 
-    public void CreateTask(string title, string description){
+    public Task CreateTask(string title, string description){
         Task task = new Task()
         {
             Id = Guid.NewGuid(),
@@ -12,11 +12,19 @@ public class TaskService
             Description = description
         };
         Tasks.Add(task);
+        return task;
     }
 
-    public List<Task> GetTasks()
+    public List<Task> GetAllTasks()
     {
         return Tasks;
+    }
+
+    public Task GetTask(Guid id)
+    {
+        var tasks = GetAllTasks();
+        var task = tasks.FirstOrDefault(t => t.Id == id);
+        return task;    
     }
 
     public List<Task> ViewCompletedTasks()
@@ -25,27 +33,33 @@ public class TaskService
         return completedTasks;
     }
 
-    public void DeleteTask(Guid taskId)
+    public bool DeleteTask(Guid taskId)
     {
+        var found = false;
         foreach(var task in Tasks)
         {
             if(task.Id == taskId)
             {
+                found = true;
                 Tasks.Remove(task);
-                break;
+                return found;
             }
         }
+        return found;
     }
 
-    public void ToggleTask(Guid taskId)
+    public bool ToggleTask(Guid taskId)
     {
+        var found = false;
         foreach(var task in Tasks)
         {
             if(task.Id == taskId)
             {
+                found = true;
                 task.IsCompleted = !task.IsCompleted;
-                break;
+                return found;
             }
         }
+        return found;
     }
 }

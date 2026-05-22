@@ -12,15 +12,31 @@ public class TasksController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult GetTasks(){
-        var tasks = _taskService.GetTasks();
+    public ActionResult GetAllTasks(){
+        var tasks = _taskService.GetAllTasks();
         return Ok(tasks);
     }
 
-    [HttpPost]
-    public ActionResult<IEnumerable<Task>> CreateTask()
+    [HttpGet("{id}")]
+    public ActionResult<Task> GetTask(Guid id)
     {
-        
+        var task = _taskService.GetTask(id);
+        if (task == null)
+        {
+            return NotFound();
+        }
+        return Ok(task);
+    }
+
+    [HttpPost]
+    public ActionResult<Task> CreateTask([FromBody] Task task)
+    {
+        if (task == null || string.IsNullOrWhiteSpace(task.Title) || string.IsNullOrWhiteSpace(task.Description))
+        {
+            return BadRequest("Task title and description cannot be empty.");
+        }
+        var createdTask = _taskService.CreateTask(task.Title, task.Description);
+        return CreatedAtAction(nameof(GetTask), new { id = createdTask.Id }, createdTask);
     }
 
 }
