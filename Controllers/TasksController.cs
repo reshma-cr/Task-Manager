@@ -39,4 +39,24 @@ public class TasksController : ControllerBase
         return CreatedAtAction(nameof(GetTask), new { id = createdTask.Id }, createdTask);
     }
 
+    [HttpDelete("{id}")]
+    public ActionResult DeleteTask(Guid id)
+    {
+        if (!_taskService.DeleteTask(id))
+        {
+            return NotFound();
+        }
+        return NoContent();
+    }
+
+    [HttpPatch("{id}/complete")]
+    public ActionResult ToggleTask(Guid id)
+    {
+        if (!_taskService.ToggleTask(id))
+        {
+            return NotFound();
+        }
+        return NoContent();
+    }
+
 }
