@@ -1,11 +1,14 @@
-public class TaskService
+using TaskManager.Domain;
+
+namespace TaskManager.Application;
+public class TaskService : ITaskService
 {
     //old way to define a list as a class property
     //public static List<string> {get; set;} = new List<string>(); 
-    public List<Task> Tasks {get; set;} = []; //new way
+    public List<TaskItem> Tasks {get; set;} = []; //new way
 
-    public Task CreateTask(string title, string description){
-        Task task = new Task()
+    public TaskItem CreateTask(string title, string description){
+        TaskItem task = new TaskItem()
         {
             Id = Guid.NewGuid(),
             Title = title,
@@ -15,22 +18,16 @@ public class TaskService
         return task;
     }
 
-    public List<Task> GetAllTasks()
+    public List<TaskItem> GetAllTasks()
     {
         return Tasks;
     }
 
-    public Task GetTask(Guid id)
+    public TaskItem GetTask(Guid id)
     {
         var tasks = GetAllTasks();
         var task = tasks.FirstOrDefault(t => t.Id == id);
         return task;    
-    }
-
-    public List<Task> ViewCompletedTasks()
-    {
-        List<Task> completedTasks = Tasks.Where(t => t.IsCompleted).ToList();
-        return completedTasks;
     }
 
     public bool DeleteTask(Guid taskId)

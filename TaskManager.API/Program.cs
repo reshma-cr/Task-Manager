@@ -1,9 +1,11 @@
+using TaskManager.Application;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<TaskService>();
+builder.Services.AddSingleton<ITaskService, TaskService>();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();

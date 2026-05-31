@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
+using TaskManager.Domain;
+using TaskManager.Application;
 
 [ApiController]
 [Route("api/[controller]")]
 public class TasksController : ControllerBase
 {
-    private readonly TaskService _taskService;
+    private readonly ITaskService _taskService;
 
-    public TasksController(TaskService taskService)
+    public TasksController(ITaskService taskService)
     {
         _taskService = taskService;
     }
@@ -18,7 +20,7 @@ public class TasksController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Task> GetTask(Guid id)
+    public ActionResult<TaskItem> GetTask(Guid id)
     {
         var task = _taskService.GetTask(id);
         if (task == null)
@@ -29,7 +31,7 @@ public class TasksController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<Task> CreateTask([FromBody] Task task)
+    public ActionResult<TaskItem> CreateTask([FromBody] TaskItem task)
     {
         if (task == null || string.IsNullOrWhiteSpace(task.Title) || string.IsNullOrWhiteSpace(task.Description))
         {
